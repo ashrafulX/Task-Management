@@ -1,0 +1,241 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+Bengali:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+     <link rel="stylesheet" href="{% static "css/output.css" %}">
+      {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"> {% endcomment %}
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 p-6">
+    <div class="max-w-[1400px] mx-auto">
+      <header class="flex justify-between items-center mb-8">
+        <h1 class="text-2xl font-semibold">Dashboard</h1>
+        <div class="flex items-center gap-4">
+          <button class="p-2 rounded-full hover:bg-gray-100 relative">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+              />
+            </svg>
+            <span class="absolute top-1 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+          </button>
+          <button
+            class="w-10 h-10 bg-blue-500 rounded-full text-white font-semibold shadow-sm"
+          >
+            B
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-sm font-medium text-gray-500 mb-4">TOTAL TASK</h3>
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-3xl font-semibold mb-1">24</p>
+                <p class="text-gray-500 text-sm">11 last month</p>
+              </div>
+              <div class="bg-blue-50 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 text-blue-600">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-sm font-medium text-gray-500 mb-4">COMPLETED TASK</h3>
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-3xl font-semibold mb-1">12</p>
+                <p class="text-green-500 text-sm flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" /></svg>
+                  12% increase
+                </p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-600">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-sm font-medium text-gray-500 mb-4">IN PROGRESS</h3>
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-3xl font-semibold mb-1">8</p>
+                <p class="text-gray-500 text-sm">4 due today</p>
+              </div>
+              <div class="bg-yellow-50 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-yellow-600">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-sm font-medium text-gray-500 mb-4">TODOS</h3>
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="text-3xl font-semibold mb-1">4</p>
+                <p class="text-gray-500 text-sm">New this week</p>
+              </div>
+              <div class="bg-purple-50 p-3 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 text-purple-600">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <div class="lg:col-span-2 space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-semibold text-gray-800">Recent Tasks</h2>
+                <button class="text-sm text-blue-600 font-medium hover:text-blue-800">View All</button>
+              </div>
+              
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead>
+                    <tr class="text-xs text-gray-400 uppercase tracking-wider border-b border-gray-100">
+                      <th class="pb-3 font-medium">Task Title</th>
+                      <th class="pb-3 font-medium">Priority</th>
+                      <th class="pb-3 font-medium">Team</th>
+                      <th class="pb-3 font-medium text-right">Created At</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-50">
+                    <tr class="hover:bg-gray-50 transition-colors">
+                      <td class="py-4">
+                        <div class="flex items-center gap-3">
+                          <span class="w-2.5 h-2.5 bg-orange-500 rounded-full"></span>
+                          <span class="font-medium text-gray-800 text-red-600">Redesign Landing Page</span>
+                        </div>
+                      </td>
+                      <td class="py-4">
+                        <span class="bg-red-50 text-red-600 px-2.5 py-1 rounded-full text-xs font-medium">High</span>
+                      </td>
+                      <td class="py-4">
+                        <div class="flex -space-x-2">
+                          <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs border-2 border-white">CA</div>
+                          <div class="w-7 h-7 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs border-2 border-white">JS</div>
+                        </div>
+                      </td>
+                      <td class="py-4 text-sm text-gray-500 text-right">2 days ago</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors">
+                      <td class="py-4">
+                        <div class="flex items-center gap-3">
+                          <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full"></span>
+                          <span class="font-medium text-gray-800">Update User Authentication</span>
+                        </div>
+                      </td>
+                      <td class="py-4">
+                        <span class="bg-yellow-50 text-yellow-700 px-2.5 py-1 rounded-full text-xs font-medium">Normal</span>
+                      </td>
+                      <td class="py-4">
+                        <div class="flex -space-x-2">
+                          <div class="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-xs border-2 border-white">AJ</div>
+                          <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs border-2 border-white">B</div>
+                          <div class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 text-xs border-2 border-white">+1</div>
+                        </div>
+                      </td>
+                      <td class="py-4 text-sm text-gray-500 text-right">5 days ago</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 transition-colors">
+                      <td class="py-4">
+                        <div class="flex items-center gap-3">
+                          <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
+                          <span class="font-medium text-gray-800">Write API Documentation</span>
+                        </div>
+                      </td>
+                      <td class="py-4">
+                        <span class="bg-blue-50 text-blue-600 px-2.5 py-1 rounded-full text-xs font-medium">Low</span>
+                      </td>
+                      <td class="py-4">
+                        <div class="flex -space-x-2">
+                          <div class="w-7 h-7 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs border-2 border-white">EV</div>
+                        </div>
+                      </td>
+                      <td class="py-4 text-sm text-gray-500 text-right">1 week ago</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <h2 class="text-lg font-semibold text-gray-800 mb-6">Team Activity</h2>
+              
+              <div class="relative space-y-6 before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                
+                <div class="relative flex items-start gap-4">
+                  <div class="absolute left-4 top-1 -ml-[5px] w-3 h-3 bg-blue-500 rounded-full border-2 border-white z-10"></div>
+                  <div class="pl-8">
+                    <p class="text-sm font-medium text-gray-800">Sarah completed a task</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Updated the payment gateway integration.</p>
+                    <span class="text-xs text-gray-400 mt-1 block">2 hours ago</span>
+                  </div>
+                </div>
+
+                <div class="relative flex items-start gap-4">
+                  <div class="absolute left-4 top-1 -ml-[5px] w-3 h-3 bg-green-500 rounded-full border-2 border-white z-10"></div>
+                  <div class="pl-8">
+                    <p class="text-sm font-medium text-gray-800">New project created</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Alex created 'Q4 Marketing Campaign'.</p>
+                    <span class="text-xs text-gray-400 mt-1 block">Yesterday</span>
+                  </div>
+                </div>
+
+                <div class="relative flex items-start gap-4">
+                  <div class="absolute left-4 top-1 -ml-[5px] w-3 h-3 bg-yellow-500 rounded-full border-2 border-white z-10"></div>
+                  <div class="pl-8">
+                    <p class="text-sm font-medium text-gray-800">Meeting Reminder</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Design sync in 30 minutes.</p>
+                    <span class="text-xs text-gray-400 mt-1 block">Yesterday</span>
+                  </div>
+                </div>
+
+              </div>
+              
+              <button class="w-full mt-6 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                View All Activity
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
