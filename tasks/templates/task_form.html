@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+   
+    <title>Create Task</title>
+</head>
+<body>
+    <div class="w-1/2 mx-auto mt-8">
+        <div>
+                <p>
+                    {% if message %}
+                        {{message}}
+                    {% endif %}
+                </p>
+        </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+
+    </form>
+    <button class='w-full p-1 bg-rose-300 rounded-lg text-center text-black mt-4' type="submit">submit</button>    
+    </div>
+        
+</body>
+</html>
