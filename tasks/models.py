@@ -27,9 +27,8 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
-
 class TaskDetail(models.Model):
-    assigned_to=models.CharField(max_length=100)
+    # assigned_to=models.CharField(max_length=100)
     HIGH="H"
     MEDIUM='M'
     LOW='L'
@@ -52,4 +51,24 @@ class project(models.Model):
 
     def __str__(self):
         return self.project_name
+    
 
+# 1. Show the tasks which are assigned to a specific employee --
+
+# 2. Show all employees working on a specific project
+
+ # 3. Get all tasks that are due today --
+
+# 4. Show all tasks with a priority higher than 'low'
+
+# 5. Get the number of tasks completed by a specific employee
+
+# 6. Get the most recently assigned task  -- next time try
+
+# 7. Show all projects that have no tasks assigned
+
+# 8. Show tasks that have been overdue for more than a week
+
+# 9. Get the total count of tasks assigned to each employee
+
+# 10. Get tasks that are either 'completed' or 'in-progress'

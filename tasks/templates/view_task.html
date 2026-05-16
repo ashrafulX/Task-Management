@@ -8,10 +8,14 @@
 <body>
     <div>
         <ul>
-        {% for i  in task  %}
-        <li>{{i.status}}</li>
-        {% endfor %}
-        </ul>
+       {% for i in task  %}
+            <li>
+                {{i.title}}
+                <span>{{i.taskdetail.priority}}</span>
+            </li>
+       {% endfor %}
+       </ul>
     </div>
+   
 </body>
 </html>

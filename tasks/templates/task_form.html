@@ -11,18 +11,21 @@
 <body>
     <div class="w-1/2 mx-auto mt-8">
         <div>
-                <p>
-                    {% if message %}
-                        {{message}}
-                    {% endif %}
-                </p>
+            
+                {% if messages %}
+                    {% for message in messages  %}
+                        <div class=" px-2 py-1 {% if message.tags == 'success' %}bg-green-500{% endif %} ">{{message}}</div>
+                    {% endfor %}
+                {% endif %}
+                
         </div>
     <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{task_form}}
+        {{task_detail}}
 
+        <button class='w-full p-1 bg-rose-500 rounded-lg text-center text-black mt-4' type="submit">submit</button>    
     </form>
-    <button class='w-full p-1 bg-rose-300 rounded-lg text-center text-black mt-4' type="submit">submit</button>    
     </div>
         
 </body>
