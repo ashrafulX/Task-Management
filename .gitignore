@@ -1,5 +1,8 @@
 __pycache__/
+*.pyc
 db.sqlite3
 env/
 .vscode/
 node_modules/
+.cph/
+npx
