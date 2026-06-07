@@ -43,6 +43,7 @@
           >
             B
           </button>
+          
         </div>
       </header>
 
@@ -180,7 +181,16 @@
                 <span>{{each.title}}</span>
       
                 <span>
-                   <a href="{% url "update-task" each.id %}">Edit</a>
+
+                  <form action="{% url 'update-task' each.id %}">
+                    <button type="submit">Edit</button>
+                  </form>
+
+                  <form action="{% url 'delete-task' each.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-white text-black px-4 py-2 rounded">Delete</button>
+                  </form>
+
                 </span>
   
               </div>
@@ -211,5 +221,10 @@
         </div>
       </main>
     </div>
+    {% if messages %}
+                    {% for message in messages  %}
+                        <div class=" px-2 py-1 {% if message.tags == 'success' %}bg-red-600-500{% endif %} ">{{message}}</div>
+                    {% endfor %}
+                {% endif %}
   </body>
 </html>

@@ -108,31 +108,53 @@ def create_task(request):
     return render(request,'task_form.html',context)
 
 def update_task(request,id):
-    up_id=Task.objects.get(id=id)
-    task_form=TaskModelForm()
-    task_detail=TaskDetailModelForm()
+    up_id = Task.objects.get(id=id)
 
-    # Django form  (eta amra use korbo na)
+    task_detail_obj = TaskDetail.objects.get(task=up_id)
+
+    task_form = TaskModelForm(instance=up_id)
+    task_detail = TaskDetailModelForm(instance=task_detail_obj)
+
     if request.method == 'POST':
-        task_form=TaskModelForm(request.POST)
-        task_detail=TaskDetailModelForm(request.POST)
+
+        task_form = TaskModelForm(request.POST, instance=up_id)
+
+        task_detail = TaskDetailModelForm(
+            request.POST,
+            instance=task_detail_obj
+        )
+
         print(task_form.errors)
         print(task_detail.errors)
-        if task_form.is_valid() and task_detail.is_valid():
-            '''For Model Form'''
 
-            task=task_form.save()
-            detail=task_detail.save(commit=False)
-            detail.task=task
+        if task_form.is_valid() and task_detail.is_valid():
+
+            task = task_form.save()
+
+            detail = task_detail.save(commit=False)
+            detail.task = task
             detail.save()
 
-            messages.success(request,'Task Created Succesfully')
-            return redirect('create-task')
-        
+            messages.success(request,'Task updated Successfully')
 
+            return redirect('update-task', up_id.id)
 
-    context={'task_form':task_form,'task_detail':task_detail}
+    context = {
+        'task_form': task_form,
+        'task_detail': task_detail
+    }
+
     return render(request,'task_form.html',context)
+
+def delete_task(request,id):
+    if request.method=='POST':
+        task=Task.objects.get(id=id)
+        task.delete()
+        messages.success(request,'Task Deleted Succesfull')
+        return redirect('manager-dashboard')
+    else:
+        messages.error(request,'something wrong')
+        return redirect('manager-dashboard')
 
 
 def view_task(request):
