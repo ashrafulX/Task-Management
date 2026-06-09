@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 import re
+from tasks.forms import StyleMixin
 
 # class RegisterForm(UserCreationForm):
 #     class Meta:
@@ -17,7 +18,7 @@ import re
 
 
 
-class CS_RegisterForm(forms.ModelForm):
+class CS_RegisterForm(StyleMixin,forms.ModelForm):
     password1=forms.CharField(widget=forms.PasswordInput)
     confirm_password=forms.CharField(widget=forms.PasswordInput)
     class Meta:
@@ -54,10 +55,14 @@ class CS_RegisterForm(forms.ModelForm):
         password1=cleaned_data.get('password1')
         confirm_password=cleaned_data.get('confirm_password')
         
-        if password1 != confirm_password:
+        if password1 and confirm_password and password1 != confirm_password:
             raise forms.ValidationError("Both Password Must Be Same")
-        
         return cleaned_data
+    
+
+
+
+
         
 
 

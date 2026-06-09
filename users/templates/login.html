@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+<body>
+    <div>
+        <form request.method='POST'>
+           <input type="text" placeholder="Enter Your UserName" name='username'>
+           <input type="password" placeholder="Enter Your Password" name='password'>
+            <button type='submit' class='bg-blue-500 px-2 py-1 rounded mt-3 text-white'>sign in</button>
+        </form>
+    </div>
+</body>
+</html>
+

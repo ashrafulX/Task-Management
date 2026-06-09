@@ -1,11 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
 <body>
+    <div class="font-extrabold"> Welcome to Authentication System</div>
     <div class='w-1/2 mx-auto my-9'>
         {% if form.non_field_errors %}
             {% for error in form.non_field_errors  %}
@@ -24,7 +27,7 @@
                 {% if field.errors %}
                     <ul>
                         {% for error in field.errors  %}
-                            <li class="text-red-500">
+                            <li class="text-yellow-500">
                                 {{error}}
                             </li>
                         {% endfor %}
@@ -38,3 +41,4 @@
     </div>
 </body>
 </html>
+
