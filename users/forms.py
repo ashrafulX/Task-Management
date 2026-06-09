@@ -26,10 +26,38 @@ class CS_RegisterForm(forms.ModelForm):
 
     def clean_password1(self):
         password1=self.cleaned_data.get('password1')
-        if(len(password1)<8):
-            raise forms.ValidationError('Password Must be 8 Character Long!')
-        elif not re.fullmatch(r"[A-Za-z0-9@#$%^&+=]{8,}", password1):
-            raise forms.ValidationError('Password must be include uppercase Lowercase digit and Special character')
+
+        errors = []
+        if len(password1) < 8:
+            errors.append('Password must be at least 8 characters long.')
+        if not re.search(r'[A-Z]', password1):
+            errors.append('Password must include at least one uppercase letter.')
+        if not re.search(r'[a-z]', password1):
+            errors.append('Password must include at least one lowercase letter.')
+        if not re.search(r'[0-9]', password1):
+            errors.append('Password must include at least one number.')
+        if not re.search(r'[@#$%^&+=]', password1):
+            errors.append('Password must include at least one special character.')
+        if errors:
+            raise forms.ValidationError(errors)
+        return password1
+    
+
+    def clean_email(self):
+        email=self.cleaned_data.get('email')
+        if(User.objects.filter(email=email)).exists():
+            raise forms.ValidationError('Email Already Exist')
+        return email
+
+    def clean(self):
+        cleaned_data=super().clean()
+        password1=cleaned_data.get('password1')
+        confirm_password=cleaned_data.get('confirm_password')
+        
+        if password1 != confirm_password:
+            raise forms.ValidationError("Both Password Must Be Same")
+        
+        return cleaned_data
         
 
 

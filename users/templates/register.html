@@ -6,12 +6,34 @@
     <title>Sign Up</title>
 </head>
 <body>
-    
+    <div class='w-1/2 mx-auto my-9'>
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors  %}
+                <p class='text-red-500'> {{error}}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <div>
         <form action="" method="POST">
             {% csrf_token %}
-            {{form.as_p}}
-            <button type='submit'>sign up</button>
+            {% for field in form   %}
+            <p>
+                <label for="{{field.id_for_label}}"> {{field.label}}</label>
+                {{field}}
+                {% if field.errors %}
+                    <ul>
+                        {% for error in field.errors  %}
+                            <li class="text-red-500">
+                                {{error}}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </p>
+            {% endfor %}
+            
+            <button type='submit' class='bg-blue-500 px-2 py-1 rounded mt-3 text-white'>sign up</button>
         </form>
     </div>
 </body>
