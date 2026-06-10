@@ -17,6 +17,7 @@ from tasks.forms import StyleMixin
 
 
 
+"""EVABE PASSWORD SAVE HOBE NA"""
 
 class CS_RegisterForm(StyleMixin,forms.ModelForm):
     password1=forms.CharField(widget=forms.PasswordInput)
@@ -61,9 +62,56 @@ class CS_RegisterForm(StyleMixin,forms.ModelForm):
     
 
 
+class RegisterForm(StyleMixin, UserCreationForm):
+    email = forms.EmailField()
 
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password1',
+            'password2',
+        ]
 
-        
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
 
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Email Already Exists')
 
+        return email
 
+    def clean_password1(self):
+        password1 = self.cleaned_data.get('password1')
+
+        errors = []
+
+        if len(password1) < 8:
+            errors.append('Password must be at least 8 characters long.')
+
+        if not re.search(r'[A-Z]', password1):
+            errors.append('Password must include at least one uppercase letter.')
+
+        if not re.search(r'[a-z]', password1):
+            errors.append('Password must include at least one lowercase letter.')
+
+        if not re.search(r'[0-9]', password1):
+            errors.append('Password must include at least one number.')
+
+        if not re.search(r'[@#$%^&+=]', password1):
+            errors.append('Password must include at least one special character.')
+
+        if errors:
+            raise forms.ValidationError(errors)
+
+        return password1
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None

@@ -1,11 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
 <body>
-    <h1>Welcome To The Home</h1>
+    <div class="min-h-screen bg-gray-100">
+
+    <div class="bg-white shadow-md">
+        <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
+            <h1 class="text-2xl font-bold text-gray-800">
+                Welcome To The Home
+            </h1>
+
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-200 shadow">
+                    Logout
+                </button>
+                </form>
+                <span>
+                    <form action="{% url 'sign-in' %}">
+                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-200 shadow">
+                    Login
+                </button>
+                    </form>
+                </span>
+            
+        </div>
+    </div>
+
+    <div class="max-w-xl mx-auto mt-12">
+        <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                Who Am I
+            </h2>
+
+            {% if user.is_authenticated %}
+                <div class="text-3xl font-bold text-blue-600">
+                    {{ user.username }}
+                </div>
+
+                <p class="text-gray-500 mt-3">
+                    You are currently logged in.
+                </p>
+            {% else %}
+                <div class="text-3xl font-bold text-red-500">
+                    Anonymous
+                </div>
+
+                <p class="text-gray-500 mt-3">
+                    Please sign in to continue.
+                </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>

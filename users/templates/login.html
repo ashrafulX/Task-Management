@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Sign in</title>
     <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
 <body>
-    <div>
-        <form request.method='POST'>
+    <div class="px-2 py-2 mt-2 mb-2 text-rose-600">
+        Welcome To Login Page
+    </div>
+    <div class="px-5 py-5 mx-auto">
+        <form method='POST'>
+            {% csrf_token %}
            <input type="text" placeholder="Enter Your UserName" name='username'>
            <input type="password" placeholder="Enter Your Password" name='password'>
             <button type='submit' class='bg-blue-500 px-2 py-1 rounded mt-3 text-white'>sign in</button>
@@ -17,4 +21,3 @@
     </div>
 </body>
 </html>
-
