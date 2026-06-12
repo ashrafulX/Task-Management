@@ -1,5 +1,9 @@
 from django.db import models
- 
+from django.db.models.signals import post_save,m2m_changed
+from django.dispatch import receiver
+from django.core.mail import send_mail
+
+
 class employees(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField(unique=True)
@@ -52,6 +56,17 @@ class project(models.Model):
     def __str__(self):
         return self.project_name
     
+@receiver(m2m_changed,sender=Task.assign_to.through)
+def notify_email_task_create(sender,instance,action,**kwargs):
+    if action=='post_add':
+        mail=[emp.email for emp in instance.assign_to.all()]
+        send_mail(
+        "Task Assigned",
+        f"A task Has been Assigned {instance.title}.",
+        "ashraf452b@gmail.com",
+        mail,
+        )
+
 
 # 1. Show the tasks which are assigned to a specific employee --
 
