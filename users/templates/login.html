@@ -11,6 +11,17 @@
     <div class="px-2 py-2 mt-2 mb-2 text-rose-600">
         Welcome To Login Page
     </div>
+
+    <div>
+        {% if messages %}
+        {% for message in messages  %}
+            <p> 
+                {{message}}
+            </p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
     <div class="px-5 py-5 mx-auto">
         <form method='POST'>
             {% csrf_token %}

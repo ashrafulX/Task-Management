@@ -16,6 +16,12 @@
                 Welcome To The Home
             </h1>
 
+            {% if messages %}
+                {% for message in messages  %}
+                <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+
             <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-200 shadow">

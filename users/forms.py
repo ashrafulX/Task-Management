@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 import re
@@ -67,21 +67,13 @@ class RegisterForm(StyleMixin, UserCreationForm):
 
     class Meta:
         model = User
-        fields = [
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password1',
-            'password2',
-        ]
+        fields = ['username','first_name','last_name','email','password1','password2',]
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Email Already Exists')
-
         return email
 
     def clean_password1(self):
@@ -115,3 +107,9 @@ class RegisterForm(StyleMixin, UserCreationForm):
         self.fields['username'].help_text = None
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
+
+
+
+class sign_in_form(StyleMixin,AuthenticationForm):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
