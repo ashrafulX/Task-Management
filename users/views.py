@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from users.forms import CS_RegisterForm ,RegisterForm,sign_in_form
+from users.forms import CS_RegisterForm ,RegisterForm,sign_in_form,AssignRoleForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 def sign_up(request):
 
     form=RegisterForm()
-
     if request.method=='POST':
         form=RegisterForm(request.POST)
         if form.is_valid():
@@ -21,7 +20,7 @@ def sign_up(request):
             messages.success(request,'A confirmation mail send your email, please activate your account')
             return redirect('sign-in')
 
-    return render(request,'register.html',{'form':form})
+    return render(request,'dashboard/register.html',{'form':form})
 
 
 def sign_in(request):
@@ -32,7 +31,7 @@ def sign_in(request):
             user=form.get_user()
             login(request,user)
             return redirect('home')
-    return render(request,'login.html')
+    return render(request,'dashboard/login.html')
 
 
 def sign_out(request):
@@ -55,3 +54,22 @@ def activate_user(request,user_id,token):
     except  Exception as e :
         return HttpResponse(('User Not Found'))
         
+
+def admin_dashboard(request):
+    users=User.objects.all()
+    return render(request,'admin/dashboard.html',{'users':users})
+
+
+
+def assign_role(request,user_id):
+    user=User.objects.get(id=user_id)
+    form=AssignRoleForm()
+    if request.method=='POST':
+        form=AssignRoleForm(request.POST)
+        if form.is_valid():
+            role=form.cleaned_data.get('role')
+            user.groups.clear()
+            user.groups.add(role)
+            messages.success(request,f'user {user.username} has been assigned to the {role.name} role')
+            return redirect('admin-dashboard')
+    return render(request,'admin/assign_role.html',{'form':form})

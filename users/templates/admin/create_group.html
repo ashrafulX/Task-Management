@@ -1,0 +1,15 @@
+{% extends "admin/dashboard.html" %}
+    {% block content %}
+        <div class='w-1/2 mx-auto my-8'>
+            <ul>
+                {% for message in messages  %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+            <form method='POST'>
+                {% csrf_token %}
+                {{form}}
+                <button type='submit' class='mt-5 py-2 px-2 text-white bg-blue-500 rounded'>Make it</button>
+            </form>
+        </div>
+    {% endblock content %}

@@ -14,6 +14,12 @@ from tasks.models import Task,TaskDetail
 #         super().__init__(*args,**kwargs)
 #         self.fields['assigned_to'].choices=[(e.id, e.name) for e in emp]
 
+
+
+
+
+
+
 # class StyleMixin:
 #     default='w-full p-2 border border-gray-300 rounded-lg focus:border-rose-600 focus:outline-none'
 
