@@ -62,14 +62,15 @@ def admin_dashboard(request):
 
 
 def assign_role(request,user_id):
-    user=User.objects.get(id=user_id)
     form=AssignRoleForm()
+    user=User.objects.get(id=user_id)
     if request.method=='POST':
         form=AssignRoleForm(request.POST)
         if form.is_valid():
             role=form.cleaned_data.get('role')
             user.groups.clear()
             user.groups.add(role)
-            messages.success(request,f'user {user.username} has been assigned to the {role.name} role')
+            messages.success(request,'User {user.username} has been assigned {role.name} role')
             return redirect('admin-dashboard')
-    return render(request,'admin/assign_role.html',{'form':form})
+    
+    return render(request,'admin/assign-role.html',{'form':form})

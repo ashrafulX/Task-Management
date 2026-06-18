@@ -116,10 +116,10 @@ class sign_in_form(StyleMixin,AuthenticationForm):
 
 
 
-class AssignRoleForm(StyleMixin,forms.Form):
-    role = forms.ModelChoiceField(
-        queryset=Group.objects.all(),
-        empty_label='Select a Role',
-
+class AssignRoleForm(StyleMixin,forms.Form): #choicefield diye dkhbo
+    role=forms.ModelChoiceField(
+        Group.objects.all(),
+        empty_label="Select A Role",
+        
     )
     
