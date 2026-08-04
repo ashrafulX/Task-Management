@@ -1,44 +1,70 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static "css/output.css" %}">
-</head>
-<body>
-    <div class="font-extrabold"> Welcome to Authentication System</div>
-    <div class='w-1/2 mx-auto my-9'>
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors  %}
-                <p class='text-red-500'> {{error}}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-2xl p-8 space-y-6">
+        
+        <!-- Header Section -->
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Create an Account
+            </h2>
+            <p class="mt-2 text-sm text-gray-500">
+                Welcome to the Authentication System
+            </p>
+        </div>
 
-    <div>
-        <form action="" method="POST">
+        <!-- Global/Non-Field Errors -->
+        {% if form.non_field_errors %}
+        <div class="space-y-2 mb-4">
+            {% for error in form.non_field_errors %}
+            <div class="px-4 py-3 text-sm rounded-lg bg-rose-50 text-rose-600 border border-rose-200 text-center font-medium shadow-sm">
+                {{ error }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Form Section -->
+        <form action="" method="POST" class="space-y-5">
             {% csrf_token %}
-            {% for field in form   %}
-            <p>
-                <label for="{{field.id_for_label}}"> {{field.label}}</label>
-                {{field}}
+            
+            {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ field.label }}
+                </label>
+                
+                <!-- Input Wrapper: Styles the Django-generated input automatically -->
+                <div class="[&>input]:block [&>input]:w-full [&>input]:px-4 [&>input]:py-3 [&>input]:border [&>input]:border-gray-300 [&>input]:rounded-lg [&>input]:text-gray-900 [&>input]:placeholder-gray-400 [&>input]:focus:outline-none [&>input]:focus:ring-2 [&>input]:focus:ring-blue-500 [&>input]:focus:border-blue-500 [&>input]:sm:text-sm [&>input]:shadow-sm [&>input]:transition [&>input]:duration-200
+                            <!-- Add same rules for select or textarea if your form uses them -->
+                            [&>select]:block [&>select]:w-full [&>select]:px-4 [&>select]:py-3 [&>select]:border [&>select]:border-gray-300 [&>select]:rounded-lg [&>select]:focus:ring-2 [&>select]:focus:ring-blue-500">
+                    {{ field }}
+                </div>
+                
+                <!-- Field-Specific Errors -->
                 {% if field.errors %}
-                    <ul>
-                        {% for error in field.errors  %}
-                            <li class="text-yellow-500">
-                                {{error}}
+                    <ul class="mt-1.5 space-y-1">
+                        {% for error in field.errors %}
+                            <li class="text-xs font-medium text-rose-500 flex items-center">
+                                <svg class="w-4 h-4 mr-1 inline" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                                {{ error }}
                             </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
-            </p>
+            </div>
             {% endfor %}
             
-            <button type='submit' class='bg-blue-500 px-2 py-1 rounded mt-3 text-white'>sign up</button>
+            <!-- Submit Button -->
+            <div class="pt-2">
+                <button type="submit" 
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    Sign Up
+                </button>
+            </div>
         </form>
     </div>
-</body>
-</html>
-
+</div>
+{% endblock content %}

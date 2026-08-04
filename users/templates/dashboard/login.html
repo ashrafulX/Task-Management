@@ -1,34 +1,51 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in</title>
-    <link rel="stylesheet" href="{% static "css/output.css" %}">
-</head>
-<body>
-    <div class="px-2 py-2 mt-2 mb-2 text-rose-600">
-        Welcome To Login Page
-    </div>
-
-    <div>
-        {% if messages %}
-        {% for message in messages  %}
-            <p> 
-                {{message}}
+{% extends "base.html" %}
+{% block content %}
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-2xl p-8 space-y-6">
+        
+        <div class="text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Welcome Back
+            </h2>
+            <p class="mt-2 text-sm text-gray-500">
+                Please sign in to your account
             </p>
-        {% endfor %}
-        {% endif %}
-    </div>
+        </div>
 
-    <div class="px-5 py-5 mx-auto">
-        <form method='POST'>
+        {% if messages %}
+        <div class="space-y-2">
+            {% for message in messages %}
+            <div class="px-4 py-3 text-sm rounded-lg bg-rose-50 text-rose-600 border border-rose-200 text-center font-medium shadow-sm">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-5">
             {% csrf_token %}
-           <input type="text" placeholder="Enter Your UserName" name='username'>
-           <input type="password" placeholder="Enter Your Password" name='password'>
-            <button type='submit' class='bg-blue-500 px-2 py-1 rounded mt-3 text-white'>sign in</button>
+            
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                <input id="username" type="text" placeholder="Enter your username" name="username" required
+                    class="block w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm transition duration-200">
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input id="password" type="password" placeholder="••••••••" name="password" required
+                    class="block w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm transition duration-200">
+            </div>
+
+            <div class="pt-2">
+                <button type="submit" 
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    Sign In
+                </button>
+            </div>
         </form>
+        
     </div>
-</body>
-</html>
+</div>
+
+{% endblock content %}

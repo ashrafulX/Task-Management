@@ -2,14 +2,14 @@ from django.db import models
 from django.db.models.signals import post_save,m2m_changed
 from django.dispatch import receiver
 from django.core.mail import send_mail
+from django.conf import settings
 
-
-class employees(models.Model):
-    name=models.CharField(max_length=100)
-    email=models.EmailField(unique=True)
+# class employees(models.Model):
+#     name=models.CharField(max_length=100)
+#     email=models.EmailField(unique=True)
     
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 # Create your models here.
 class Task(models.Model):
@@ -19,7 +19,7 @@ class Task(models.Model):
         ('COMPLETED','completed'),
     ]
     project=models.ForeignKey("project",on_delete=models.CASCADE,default=1)
-    assign_to=models.ManyToManyField(employees)
+    assign_to=models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='tasks')
 
     title=models.CharField(max_length=250)
     description=models.TextField()

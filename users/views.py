@@ -1,14 +1,19 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from users.forms import CS_RegisterForm ,RegisterForm,sign_in_form,AssignRoleForm
+from users.forms import  RegisterForm,sign_in_form,AssignRoleForm,CreateGroupForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Permission,Group
+from django.contrib.auth.decorators import login_required,user_passes_test
+from django.http import HttpResponse
+from django.views import View
+
+    
+def is_admin(user):
+    return user.groups.filter(name='Admin').exists()
 
 def sign_up(request):
-
     form=RegisterForm()
     if request.method=='POST':
         form=RegisterForm(request.POST)
@@ -33,7 +38,7 @@ def sign_in(request):
             return redirect('home')
     return render(request,'dashboard/login.html')
 
-
+@login_required
 def sign_out(request):
     if request.method=='POST':
         logout(request)
@@ -54,13 +59,13 @@ def activate_user(request,user_id,token):
     except  Exception as e :
         return HttpResponse(('User Not Found'))
         
-
+@user_passes_test(is_admin,login_url='no-permission')
 def admin_dashboard(request):
     users=User.objects.all()
     return render(request,'admin/dashboard.html',{'users':users})
 
 
-
+@user_passes_test(is_admin,login_url='no-permission')
 def assign_role(request,user_id):
     form=AssignRoleForm()
     user=User.objects.get(id=user_id)
@@ -73,4 +78,20 @@ def assign_role(request,user_id):
             messages.success(request,'User {user.username} has been assigned {role.name} role')
             return redirect('admin-dashboard')
     
-    return render(request,'admin/assign-role.html',{'form':form})
+    return render(request,'admin/assign_role.html',{'form':form})
+
+@user_passes_test(is_admin,login_url='no-permission')
+def create_group(request):
+    form=CreateGroupForm()
+    if request.method=='POST':
+        form=CreateGroupForm(request.POST)
+        if form.is_valid():
+            group=form.save()
+            messages.success(request,f'{group} Has been created succesfully!')
+            return redirect('creat-group')
+    return render(request,'admin/create_group.html',{'form':form})
+
+@user_passes_test(is_admin,login_url='no-permission')
+def group_list(request):
+    groups=Group.objects.all()
+    return render(request,'admin/group_list.html',{'groups':groups})

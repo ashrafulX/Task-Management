@@ -1,75 +1,116 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="stylesheet" href="{% static "css/output.css" %}">
-</head>
-<body>
-    <div class="min-h-screen bg-gray-100">
-
-    <div class="bg-white shadow-md">
-        <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
-            <h1 class="text-2xl font-bold text-gray-800">
-                Welcome To The Home
-            </h1>
-
-            {% if messages %}
-                {% for message in messages  %}
-                <p>{{message}}</p>
-                {% endfor %}
-            {% endif %}
-
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-200 shadow">
-                    Logout
-                </button>
-                </form>
-                <span>
-                    <form action="{% url 'sign-in' %}">
-                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-lg transition duration-200 shadow">
-                    Login
-                </button>
-                    </form>
-                </span>
-            
+{% extends "base.html" %}
+{% block content %}
+  <section class="bg-gradient-to-br from-blue-700 via-blue-600 to-sky-500 text-white">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-24">
+      <div>
+        <span class="inline-flex rounded-full bg-white/15 px-4 py-1 text-sm font-semibold backdrop-blur">Smart workflow for modern teams</span>
+        <h1 class="mt-6 text-4xl font-black tracking-tight sm:text-5xl md:text-6xl">Streamline Your Workflow with TaskMaster</h1>
+        <p class="mt-5 max-w-2xl text-lg text-blue-50 md:text-xl">Empower your team with a clear, collaborative task management experience built for speed, visibility, and focus.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#" class="rounded-full bg-white px-6 py-3 text-base font-semibold text-blue-700 shadow-lg transition hover:bg-slate-100">Get Started</a>
+          <a href="#" class="rounded-full border border-white/40 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10">See Features</a>
         </div>
-    </div>
+      </div>
 
-    <div class="max-w-xl mx-auto mt-12">
-        <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-
-            <h2 class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-2">
-                Who Am I
-            </h2>
-
-            {% if user.is_authenticated %}
-                <div class="text-3xl font-bold text-blue-600">
-                    {{ user.username }}
-                </div>
-
-                <p class="text-gray-500 mt-3">
-                    You are currently logged in.
-                </p>
-            {% else %}
-                <div class="text-3xl font-bold text-red-500">
-                    Anonymous
-                </div>
-
-                <p class="text-gray-500 mt-3">
-                    Please sign in to continue.
-                </p>
-            {% endif %}
-
+      <div class="rounded-3xl border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur">
+        <div class="rounded-2xl bg-white p-6 text-slate-900 shadow-xl">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-slate-500">Team Progress</p>
+              <h2 class="text-2xl font-bold">87% on track</h2>
+            </div>
+            <div class="rounded-2xl bg-emerald-100 px-3 py-2 text-sm font-semibold text-emerald-700">+12%</div>
+          </div>
+          <div class="mt-6 space-y-4">
+            <div>
+              <div class="mb-2 flex items-center justify-between text-sm text-slate-600">
+                <span>Product launch</span>
+                <span>72%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100">
+                <div class="h-2 w-[72%] rounded-full bg-blue-600"></div>
+              </div>
+            </div>
+            <div>
+              <div class="mb-2 flex items-center justify-between text-sm text-slate-600">
+                <span>Customer onboarding</span>
+                <span>53%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100">
+                <div class="h-2 w-[53%] rounded-full bg-emerald-500"></div>
+              </div>
+            </div>
+            <div>
+              <div class="mb-2 flex items-center justify-between text-sm text-slate-600">
+                <span>QA review</span>
+                <span>91%</span>
+              </div>
+              <div class="h-2 rounded-full bg-slate-100">
+                <div class="h-2 w-[91%] rounded-full bg-violet-500"></div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </section>
 
-</div>
+  <section class="py-24 md:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Tailored for Every Role</h2>
+        <p class="mt-4 text-slate-600">A polished workflow experience for admins, managers, and employees alike.</p>
+      </div>
 
- 
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-6 inline-flex rounded-2xl bg-blue-100 p-3 text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900">Admin</h3>
+          <ul class="mt-6 space-y-3 text-slate-600">
+            <li>Manage user roles and permissions</li>
+            <li>Generate comprehensive reports</li>
+            <li>Configure system-wide settings</li>
+            <li>Monitor team performance</li>
+          </ul>
+        </div>
 
-</body>
-</html>
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-6 inline-flex rounded-2xl bg-violet-100 p-3 text-violet-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 114 0v2M5 10h14M7 6h10a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2V8a2 2 0 012-2z" /></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900">Manager</h3>
+          <ul class="mt-6 space-y-3 text-slate-600">
+            <li>Create and assign tasks to employees</li>
+            <li>Track project progress in real-time</li>
+            <li>Set deadlines and priorities</li>
+            <li>Generate team performance reports</li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-6 inline-flex rounded-2xl bg-emerald-100 p-3 text-emerald-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900">Employee</h3>
+          <ul class="mt-6 space-y-3 text-slate-600">
+            <li>View and manage assigned tasks</li>
+            <li>Collaborate with team members</li>
+            <li>Update task status and progress</li>
+            <li>Track personal productivity</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-slate-100 py-24 md:py-28">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">Ready to Boost Your Team's Productivity?</h2>
+      <p class="mt-4 text-lg text-slate-600">Join thousands of organizations already using TaskMaster.</p>
+      <a href="#" class="mt-8 inline-flex rounded-full bg-blue-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition hover:bg-blue-700">Start Free Trial</a>
+    </div>
+  </section>
+{% endblock content %}
+

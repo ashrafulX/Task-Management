@@ -1,11 +1,23 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from tasks.forms import TaskModelForm,TaskDetailModelForm
-from tasks.models import employees,Task,TaskDetail
+from tasks.models import Task,TaskDetail
 from django.db.models import Q,Count
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 # Create your views here.
 
+def is_admin(user):
+    return user.groups.filter(name='Admin').exists()
+
+def is_employee(user):
+    return user.groups.filter(name='Employee').exists()
+
+def is_manager(user):
+    return user.groups.filter(name='Manager').exists()
+
+
+@login_required
 def dashboard(request):
     task=Task.objects.all()
     total_task=task.count()
@@ -20,9 +32,14 @@ def dashboard(request):
     }
     return render(request,'dashboard/dashboard.html',context)
 
+@login_required
+@user_passes_test(is_employee,login_url='no-permission')
 def user_dashboard(request):
     return render(request,'dashboard/user-dashboard.html')
 
+
+@login_required
+@user_passes_test(is_manager,login_url='no-permission')
 def manager_dashboard(request):
 
     dekhi=request.GET.get('dekhi','all')
@@ -59,14 +76,10 @@ def manager_dashboard(request):
     }
     return render(request, 'dashboard/manager-dashboard.html',context)
 
-def test(request):
-    context ={
-        'name':['afsana','ashraful','incoming...'],
-        'age':10
-    }
-    return render(request,'test.html',context)
 
 
+@login_required
+@permission_required('tasks.add_task',login_url='no-permission')
 def create_task(request):
     # emp=employees.objects.all()
     task_form=TaskModelForm()
@@ -107,6 +120,10 @@ def create_task(request):
     context={'task_form':task_form,'task_detail':task_detail}
     return render(request,'task_form.html',context)
 
+
+
+@login_required
+@permission_required('tasks.cange_task',login_url='no-permission')
 def update_task(request,id):
     up_id = Task.objects.get(id=id)
 
@@ -146,6 +163,10 @@ def update_task(request,id):
 
     return render(request,'task_form.html',context)
 
+
+
+@login_required
+@permission_required('tasks.delete_task',login_url='no-permission')
 def delete_task(request,id):
     if request.method=='POST':
         task=Task.objects.get(id=id)
@@ -157,6 +178,10 @@ def delete_task(request,id):
         return redirect('manager-dashboard')
 
 
+
+
+@login_required
+@permission_required('tasks.view_task',login_url='no-permission')
 def view_task(request):
     
     """Select Related Query (foreignkey, one to one)"""
@@ -164,3 +189,10 @@ def view_task(request):
 
     task=Task.objects.select_related('taskdetail').all()
     return render(request,'view_task.html',{'task':task})
+
+
+@login_required
+@permission_required('tasks.view_task',login_url='no-permission')
+def task_details(request,id):
+    task=Task.objects.get(id=id)
+    return render(request,'task_detail.html',{'task':task})
